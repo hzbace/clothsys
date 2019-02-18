@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.Person">
+    <id column="per_id" jdbcType="INTEGER" property="perId" />
+    <result column="per_name" jdbcType="VARCHAR" property="perName" />
+    <result column="per_company" jdbcType="VARCHAR" property="perCompany" />
+    <result column="per_email" jdbcType="VARCHAR" property="perEmail" />
+    <result column="per_phone" jdbcType="VARCHAR" property="perPhone" />
+    <result column="per_addr" jdbcType="VARCHAR" property="perAddr" />
+    <result column="per_user_id" jdbcType="INTEGER" property="perUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    per_id, per_name, per_company, per_email, per_phone, per_addr, per_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_person
+    where per_id = #{perId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_person
+    where per_user_id = #{perUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from db_person
+    where per_id = #{perId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.Person">
+    insert into db_person (per_id, per_name, per_company, 
+      per_email, per_phone, per_addr, 
+      per_user_id)
+    values (#{perId,jdbcType=INTEGER}, #{perName,jdbcType=VARCHAR}, #{perCompany,jdbcType=VARCHAR}, 
+      #{perEmail,jdbcType=VARCHAR}, #{perPhone,jdbcType=VARCHAR}, #{perAddr,jdbcType=VARCHAR}, 
+      #{perUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.Person">
+    insert into db_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="perId != null">
+        per_id,
+      </if>
+      <if test="perName != null">
+        per_name,
+      </if>
+      <if test="perCompany != null">
+        per_company,
+      </if>
+      <if test="perEmail != null">
+        per_email,
+      </if>
+      <if test="perPhone != null">
+        per_phone,
+      </if>
+      <if test="perAddr != null">
+        per_addr,
+      </if>
+      <if test="perUserId != null">
+        per_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="perId != null">
+        #{perId,jdbcType=INTEGER},
+      </if>
+      <if test="perName != null">
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perCompany != null">
+        #{perCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="perEmail != null">
+        #{perEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="perPhone != null">
+        #{perPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="perAddr != null">
+        #{perAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="perUserId != null">
+        #{perUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.Person">
+    update db_person
+    <set>
+      <if test="perName != null">
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perCompany != null">
+        per_company = #{perCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="perEmail != null">
+        per_email = #{perEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="perPhone != null">
+        per_phone = #{perPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="perAddr != null">
+        per_addr = #{perAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="perUserId != null">
+        per_user_id = #{perUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.Person">
+    update db_person
+    set per_name = #{perName,jdbcType=VARCHAR},
+      per_company = #{perCompany,jdbcType=VARCHAR},
+      per_email = #{perEmail,jdbcType=VARCHAR},
+      per_phone = #{perPhone,jdbcType=VARCHAR},
+      per_addr = #{perAddr,jdbcType=VARCHAR},
+      per_user_id = #{perUserId,jdbcType=INTEGER}
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+  <select id="findAllPerson" resultMap="BaseResultMap">
+  	select * from db_person 
+  </select>
+  <select id="count" resultType="int">
+  	select count(*) from db_user
+  </select>
+  <select id="findByName" parameterType="string" resultMap="BaseResultMap">
+  	select * from db_person where per_name = #{perName}
+  </select>
+</mapper>

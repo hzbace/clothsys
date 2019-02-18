@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/DatePicker.js"></script>
+<script src="../js/jquery.form.min.js"></script>
+<title>地址修改页面</title>
+</head>
+<body>
+	<div class="row" style="margin-left: 20px;">
+		<form action="#" method="post" onsubmit="return false;">
+			<div>
+				<h3>修改地址</h3>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-sm-6">
+				<p style="color:red"></p>
+					<div class="form-group form-inline">
+						<label>名称:</label>
+						<input type="text" name="perName" class="form-control" />
+					</div>
+					
+					<div class="form-group form-inline">
+						<label>公司名称</label>
+						<input type="text" name="perCompany" readonly="readonly" class="form-control" onclick="setday(this)" />
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group form-inline">
+						<label>邮箱:</label>
+						<input type="text" name="perEmail" class="form-control" /> 元
+					</div>
+					<div class="form-group form-inline">
+						<label>电话:</label>
+						<input type="text" name="perPhone" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-10">
+					<div class="form-group form-inline">
+						<label>地址</label>
+						<input type="text" name="perAddr"/>
+					</div>
+					<div class="form-group form-inline">
+						<input type="submit" value="添加" class="btn btn-primary" />
+						<input type="reset" value="重置" class="btn btn-default" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		var info = window.location.search;
+		$(function(){
+			$.ajax({
+				type:"get",
+				url:"/cloth/findPerson.do" + info,
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						var person = data.data;
+						
+						$("input[name='perName']").val(person.perName);
+						$("input[name='perCompany']").val(person.perCompany);
+						$("input[name='perEmail']").val(person.perEmail);
+						$("input[name='perPhone']").val(person.perPhone);
+						$("input[name='perAddr']").val(person.perAddr);
+						
+						
+					}else{
+						alert("未找到");
+					}
+				},
+				error:function(data){
+					alert("ajax runtime error");
+				}
+			})
+		})
+	
+	
+	</script>
+	<script type="text/javascript">
+	var info = window.location.search;
+	var index = info.indexOf("=", 0);
+	var id = info.substring(index + 1);
+	$("form").submit(function(){
+		//图片的异步上传
+		//jquery.form中提供的操作
+		$("form").ajaxSubmit({
+			type:"post",
+			url:"/cloth/updatePerson.do?id=" + id,
+			data:$("form").serialize(),
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					window.location.href = "showAllPerson.html";
+					
+				}else{
+					alert("修改失败");
+				}
+			}
+		})
+	})
+	
+	
+	
+	</script>
+</body>
+</html>

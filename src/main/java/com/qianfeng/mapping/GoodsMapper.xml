@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.Goods">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_size" jdbcType="INTEGER" property="goodsSize" />
+    <result column="goods_color" jdbcType="INTEGER" property="goodsColor" />
+    <result column="goods_pid" jdbcType="INTEGER" property="goodsPid" />
+    <result column="goods_sales" jdbcType="INTEGER" property="goodsSales" />
+    <result column="goods_level" jdbcType="INTEGER" property="goodsLevel" />
+    <result column="goods_home_id" jdbcType="INTEGER" property="goodsHomeId" />
+    <result column="goods_imgpath" jdbcType="VARCHAR" property="goodsImgpath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goods_id, goods_name, goods_price, goods_size, goods_color, goods_pid, goods_sales, 
+    goods_level, goods_home_id, goods_imgpath
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from db_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.Goods">
+    insert into db_goods (goods_id, goods_name, goods_price, 
+      goods_size, goods_color, goods_pid, 
+      goods_sales, goods_level, goods_home_id, 
+      goods_imgpath)
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{goodsSize,jdbcType=INTEGER}, #{goodsColor,jdbcType=INTEGER}, #{goodsPid,jdbcType=INTEGER}, 
+      #{goodsSales,jdbcType=INTEGER}, #{goodsLevel,jdbcType=INTEGER}, #{goodsHomeId,jdbcType=INTEGER}, 
+      #{goodsImgpath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.Goods">
+    insert into db_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsSize != null">
+        goods_size,
+      </if>
+      <if test="goodsColor != null">
+        goods_color,
+      </if>
+      <if test="goodsPid != null">
+        goods_pid,
+      </if>
+      <if test="goodsSales != null">
+        goods_sales,
+      </if>
+      <if test="goodsLevel != null">
+        goods_level,
+      </if>
+      <if test="goodsHomeId != null">
+        goods_home_id,
+      </if>
+      <if test="goodsImgpath != null">
+        goods_imgpath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSize != null">
+        #{goodsSize,jdbcType=INTEGER},
+      </if>
+      <if test="goodsColor != null">
+        #{goodsColor,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPid != null">
+        #{goodsPid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSales != null">
+        #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="goodsLevel != null">
+        #{goodsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsHomeId != null">
+        #{goodsHomeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgpath != null">
+        #{goodsImgpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByGoods" parameterType="com.qianfeng.pojo.Goods">
+    update db_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsSize != null">
+        goods_size = #{goodsSize,jdbcType=INTEGER},
+      </if>
+      <if test="goodsColor != null">
+        goods_color = #{goodsColor,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPid != null">
+        goods_pid = #{goodsPid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSales != null">
+        goods_sales = #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="goodsLevel != null">
+        goods_level = #{goodsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsHomeId != null">
+        goods_home_id = #{goodsHomeId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgpath != null">
+        goods_imgpath = #{goodsImgpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.Goods">
+    update db_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_size = #{goodsSize,jdbcType=INTEGER},
+      goods_color = #{goodsColor,jdbcType=INTEGER},
+      goods_pid = #{goodsPid,jdbcType=INTEGER},
+      goods_sales = #{goodsSales,jdbcType=INTEGER},
+      goods_level = #{goodsLevel,jdbcType=INTEGER},
+      goods_home_id = #{goodsHomeId,jdbcType=INTEGER},
+      goods_imgpath = #{goodsImgpath,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <select id="findAllGoods" parameterType="com.qianfeng.pojo.Goods"  resultMap="BaseResultMap">
+  	select * from db_goods
+  </select>
+  <select id="findGoods" parameterType="com.qianfeng.pojo.Goods"  resultMap="BaseResultMap">
+  		 select * from db_goods
+  	 
+    <where>
+      <if test="goodsPid != null">
+        and goods_pid = #{goodsPid,jdbcType=INTEGER}
+      </if>
+    
+      <if test="goodsHomeId != null">
+        and goods_home_id = #{goodsHomeId,jdbcType=INTEGER}
+      </if>
+      
+      <if test="goodsLevel != null">
+        and goods_level = #{goodsLevel,jdbcType=INTEGER}
+      </if>
+    
+    </where>
+  </select>
+  <select id="selectByPid" parameterType="int" resultMap="BaseResultMap">
+  	select * from db_goods where goods_pid=#{goodsPid}
+  </select>
+ 
+ <select id="selectAllGoodsByType" resultMap="BaseResultMap">
+ 	SELECT * FROM db_goods d order by d.goods_id DESC limit 8
+ </select>
+ <select id="selectAllGoodsByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 	SELECT * FROM db_goods d  limit #{page}
+ </select>
+ <select id="selectAllGoodsPriceByType" resultMap="BaseResultMap">
+ 	select * from db_goods g order by g.goods_price desc limit 8
+ </select>
+ <select id="selectAllGoodsSalesByType" resultMap="BaseResultMap">
+ 	select * from db_goods g order by g.goods_sales desc limit 8
+ </select>
+ <select id="findGoodsByLevel" parameterType="int" resultMap="BaseResultMap">
+ 	select * from db_goods where goods_level = #{goodsLevel}
+ </select>
+ <select id="selectAllGoodsById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from db_goods
+    where goods_id = #{GoodsId}
+  </select>
+</mapper>

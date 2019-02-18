@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/vue.js"></script>
+<link rel="stylesheet" href="../layui/css/layui.css" />
+<script type="application/javascript" src="../layui/layui.js"></script>
+<title>商品分类</title>
+</head>
+<body>
+<div class="row" style="width:98%;margin-left: 1%;">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				商品类型
+			</div>
+			<div class="panel-body">
+				<!-- <div class="row">
+					<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+						<div class="form-group form-inline">
+							<span>商品等级</span>
+							<input type="text" name="level" class="form-control">
+						</div>
+					</div>
+					<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+						<div class="form-group form-inline">
+							<span>类型名称</span>
+							<input type="text" name="typename" class="form-control">
+						</div>
+					</div>
+					<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+						<button type="button" class="btn btn-primary" onclick="searchClick()" id="search"><span class="glyphicon glyphicon-search">搜索</span></button>
+					</div>
+				</div> -->
+				<div style="height: 400px;overflow: scroll;">
+				<table id="tb_list" class="table table-striped table-hover table-bordered">
+					<tr>
+						<td>序号</td><td>类型名称</td><td>操作</td>
+					</tr>
+					<tbody id="bodyid">
+						<tr v-for="t in obj.data">
+							<td><span class="glyphicon glyphicon-triangle-right"></span></td><td>{{t.gtName}}</td>
+							<td><button>删除</button></td>
+						</tr>
+					</tbody>
+					<tr>
+					<td colspan="3"><button class="btn btn-success" onclick="dododo()">添加</button></td></tr>
+				</table>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var vue1 = new Vue({
+		el:'#bodyid',
+		data:{
+			obj:{
+				
+			}
+		}
+	})
+	
+	var kind = window.location.search;
+	
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"/cloth/GoodsType.do" + kind,
+			success:function(data){
+				vue1.obj = data;
+			}
+		})
+	})
+	
+</script>
+<script type="text/javascript">
+	
+		function dododo(){
+			layui.use(['layer'], function(){
+				  var layer = layui.layer;
+				  var form =  layui.form;
+					layer.open({
+						type:1,
+						title: "编辑用户信息",
+						content: $('#content').html(),
+						maxmin:true,
+						area: ['300px', '150px'],
+					  	success: function(layero, index){},
+		               yes:function(){
+		               }
+						
+					});
+					
+					/*   //监听提交
+					  form.on('submit(formDemo)', function(data){
+					    layer.msg(JSON.stringify(data.field));
+					    
+					    $.ajax({
+					    	type:"post",
+					    	url:"/cloth/saveGoodsType.do",
+					    	data:data,
+					    	success:function(obj){
+					    		if(obj.code == 1){
+					    			alert("save successful");
+					    		}else{
+					    			alert("fail to add");
+					    		}
+					    	},
+					    	error:function(obj){
+					    		alert("ajax runtime error");
+					    	}
+					    })
+					    
+					  }); 
+		 */
+		 $("form").submit(function(){
+				$.ajax({
+			    	type:"post",
+			    	url:"/cloth/saveGoodsType.do",
+			    	data:$(this).serialize(),
+			    	success:function(obj){
+			    		if(obj.code == 1){
+			    			alert("save successful");
+			    		}else{
+			    			alert("fail to add");
+			    		}
+			    	},
+			    	error:function(obj){
+			    		alert("ajax runtime error");
+			    	}
+			    })
+			})
+			})
+		}             
+</script>
+<div id="content" style="display: none" >
+<form onsubmit="return false">
+	类型名称<input type="text" name="gtName" /><br><br>
+	选择分类<select name="gtKind">
+		<option value=1>饰品</option>
+		<option value=2>男装</option>
+		<option value=3>女装</option>
+	</select>	
+	<br/>
+	<input type="reset" value="重置">
+	<input type="submit" value="添加">
+</form>
+</div>
+<!-- <script type="text/javascript">
+	
+</script> -->
+</body>
+
+</html>

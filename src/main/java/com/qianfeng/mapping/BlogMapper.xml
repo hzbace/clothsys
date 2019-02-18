@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.BlogMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.Blog">
+    <id column="blog_id" jdbcType="INTEGER" property="blogId" />
+    <result column="blog_picture" jdbcType="VARCHAR" property="blogPicture" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="blog_user_id" jdbcType="INTEGER" property="blogUserId" />
+    <result column="share_num" jdbcType="INTEGER" property="shareNum" />
+    <result column="comment_item" jdbcType="VARCHAR" property="commentItem" />
+    <result column="blog_time" jdbcType="DATE" property="blogTime" />
+    <result column="blog_style" jdbcType="VARCHAR" property="blogStyle" />
+  </resultMap>
+    <resultMap id="BaseResultMap1" type="com.qianfeng.vo.BlogVo">
+    <id column="blog_id" jdbcType="INTEGER" property="blogId" />
+    <result column="blog_picture" jdbcType="VARCHAR" property="blogPicture" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="blog_user_id" jdbcType="INTEGER" property="blogUserId" />
+   
+    <result column="share_num" jdbcType="INTEGER" property="shareNum" />
+    <result column="comment_item" jdbcType="VARCHAR" property="commentItem" />
+    <result column="blog_time" jdbcType="DATE" property="blogTime" />
+    <result column="blog_style" jdbcType="VARCHAR" property="blogStyle" />
+    <result column="user_flag" jdbcType="INTEGER" property="userFlag" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blog_id, blog_picture, comment_num, comment_content, blog_user_id, share_num, comment_item, 
+    blog_time, blog_style
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_blog
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from db_blog
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.Blog">
+    insert into db_blog (blog_id, blog_picture, comment_num, 
+      comment_content, blog_user_id, share_num, 
+      comment_item, blog_time, blog_style
+      )
+    values (#{blogId,jdbcType=INTEGER}, #{blogPicture,jdbcType=VARCHAR}, #{commentNum,jdbcType=INTEGER}, 
+      #{commentContent,jdbcType=VARCHAR}, #{blogUserId,jdbcType=INTEGER}, #{shareNum,jdbcType=INTEGER}, 
+      #{commentItem,jdbcType=VARCHAR}, #{blogTime,jdbcType=DATE}, #{blogStyle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.Blog">
+    insert into db_blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        blog_id,
+      </if>
+      <if test="blogPicture != null">
+        blog_picture,
+      </if>
+      <if test="commentNum != null">
+        comment_num,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="blogUserId != null">
+        blog_user_id,
+      </if>
+      <if test="shareNum != null">
+        share_num,
+      </if>
+      <if test="commentItem != null">
+        comment_item,
+      </if>
+      <if test="blogTime != null">
+        blog_time,
+      </if>
+      <if test="blogStyle != null">
+        blog_style,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        #{blogId,jdbcType=INTEGER},
+      </if>
+      <if test="blogPicture != null">
+        #{blogPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null">
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="blogUserId != null">
+        #{blogUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null">
+        #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="commentItem != null">
+        #{commentItem,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTime != null">
+        #{blogTime,jdbcType=DATE},
+      </if>
+      <if test="blogStyle != null">
+        #{blogStyle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.Blog">
+    update db_blog
+    <set>
+      <if test="blogPicture != null">
+        blog_picture = #{blogPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null">
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="blogUserId != null">
+        blog_user_id = #{blogUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null">
+        share_num = #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="commentItem != null">
+        comment_item = #{commentItem,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTime != null">
+        blog_time = #{blogTime,jdbcType=DATE},
+      </if>
+      <if test="blogStyle != null">
+        blog_style = #{blogStyle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.Blog">
+    update db_blog
+    set blog_picture = #{blogPicture,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      blog_user_id = #{blogUserId,jdbcType=INTEGER},
+      share_num = #{shareNum,jdbcType=INTEGER},
+      comment_item = #{commentItem,jdbcType=VARCHAR},
+      blog_time = #{blogTime,jdbcType=DATE},
+      blog_style = #{blogStyle,jdbcType=VARCHAR}
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllBlog" resultMap="BaseResultMap1">
+  	SELECT b.*, u.user_name, u.user_flag from db_blog b
+	INNER JOIN db_user u
+	ON b.blog_user_id= u.user_id
+  	
+  </select>
+  <select id="selectByUser" parameterType="com.qianfeng.vo.BlogVo" resultMap="BaseResultMap1">
+  	SELECT b.*, u.user_name, u.user_flag from db_blog b
+	INNER JOIN db_user u
+	ON b.blog_user_id= u.user_id
+	where u.user_name=#{'userName'}
+  </select>
+ <select id="selectById" parameterType="com.qianfeng.vo.BlogVo" resultMap="BaseResultMap1">
+ 	SELECT b.*, u.user_name, u.user_flag from db_blog b
+	INNER JOIN db_user u
+	ON b.blog_user_id= u.user_id
+	where u.user_id=#{blogUserId}
+ </select>
+ 
+ <update id="updateShare" parameterType="com.qianfeng.vo.BlogVo" >
+ 	update db_blog set share_num=#{shareNum} 
+ 	where blog_id=#{blogId}
+ </update>
+ 
+ <select id="selectByBlogId" parameterType="com.qianfeng.vo.BlogVo" resultMap="BaseResultMap1">
+ 	SELECT b.*, u.user_name, u.user_flag from db_blog b
+	INNER JOIN db_user u
+	ON b.blog_user_id= u.user_id
+	where blog_id = #{blogId,jdbcType=INTEGER}
+ 
+ </select>
+ 
+
+</mapper>

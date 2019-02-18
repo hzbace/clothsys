@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.GoodsSizeMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.GoodsSize">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_size" jdbcType="VARCHAR" property="goodsSize" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, goods_size, goods_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_goods_size
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from db_goods_size
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.GoodsSize">
+    insert into db_goods_size (id, goods_size, goods_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{goodsSize,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qianfeng.pojo.GoodsSize">
+    insert into db_goods_size
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsSize != null">
+        goods_size,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSize != null">
+        #{goodsSize,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qianfeng.pojo.GoodsSize">
+    update db_goods_size
+    <set>
+      <if test="goodsSize != null">
+        goods_size = #{goodsSize,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.GoodsSize">
+    update db_goods_size
+    set goods_size = #{goodsSize,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="selectGoodsSizeAllById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select * from db_goods_size s where s.goods_id = #{GoodsId}
+  </select>
+  
+  
+</mapper>
